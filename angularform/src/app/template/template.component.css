@@ -1,0 +1,13 @@
+.col-sm-6{
+    text-align: center;
+}
+
+.left{
+    /* border-right: 1px solid black; */
+   
+    padding-inline-start: 10%;
+    text-align: left;
+}
+mat-form-field {
+    margin-right: 12px;
+  }
