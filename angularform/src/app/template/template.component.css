@@ -1,7 +1,28 @@
-.col-sm-6{
+/* .col-sm-6{
+    text-align: center;
+} */
+/* .container{
+    position: absolute;
+    left: 60%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+} */
+.label{
+    font-size: 18px;
+    width: 600;
+    letter-spacing: 0.09em;
+
+}
+.paddingTop{
+    border-bottom: 1px solid black;
+    padding-top: 1%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
     text-align: center;
 }
-
 .left{
     /* border-right: 1px solid black; */
    

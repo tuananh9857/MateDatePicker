@@ -1,55 +1,130 @@
-<div class="row align-items-center">
-    <div class="col-4" style="text-align: center;">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Sign Up Form</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <form #exampleForm="ngForm"lass="form-group row">
-                    <div class="col-12">
-                        <mat-form-field>
-                            <mat-label>First Name</mat-label>
-                            <input matInput placeholder="" [(ngModel)]="person.firstName" name="firstName"
-                                required>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-12">
-                        <mat-form-field>
-                            <mat-label>Last Name</mat-label>
-                            <input matInput placeholder="" [(ngModel)]="person.lastName" name="lastName"
-                                required>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-12">
-                        <mat-form-field>
-                            <mat-label> Address</mat-label>
-                            <textarea matInput name = "address" [(ngModel)]="person.address" #address='ngModel'></textarea>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-12">
-                        <mat-form-field>
-                            <mat-label>MM/DD/YYYY</mat-label>
-                            <input matInput name ="picker3" [min]="minDate" [max]="maxDate" [matDatepicker]="date" [(ngModel)]="person.dob" #picker3='ngModel'>
-                            <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
-                            <mat-datepicker #date></mat-datepicker>
-                          </mat-form-field>
-                    </div>
-                    <div class="col-12">
-                        <mat-radio-group name="gender" [(ngModel)]="person.gender" #gender='ngModel'>
-                            <mat-radio-button value="male">Male</mat-radio-button> &nbsp;&nbsp;
-                            <mat-radio-button value="female">Female</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                </form>
-            </mat-card-content>
-            <mat-card-actions>
-                <mat-card-actions>
-                    <button  mat-raised-button (click)="saveContact(exampleForm)"  color="primary">Save Contact</button>
-                </mat-card-actions>
-            </mat-card-actions>
-        </mat-card>
+<div class="container-fluid">
+    <div class="container-fluid row paddingTop">
+        <div class="col-sm-8 label" style="text-align: left">LEAF</div>
+        <div class="col-sm-1">Sign in</div>
+        <div class="col-sm-2">Create Your Leaf ID</div>
+        <div class="col-sm-1">FQA</div>
     </div>
-    <!-- <div class="col">
-      One of three columns
-    </div> -->
-  </div>
+    <div class="container-fluid paddingTop">
+        <h1>CREATE YOUR LEAF ID</h1>
+    </div>
+    <div class="container-fluid paddingTop">
+        <h3>Already have an Leaf ID ? Look up here ></h3>
+        <div class="row justify-content-end">
+            <div class="col-4">
+                <mat-card-content>
+                    <!-- Declarion exampleFrom from ngForm -->
+                    <form #exampleForm="ngForm" class="form-group row" novalidate>
+                        <div [hidden]="submitted">
+                            <!-- First Name && Last Name -->
+                            <div class="form-row justify-content-center">
+                                <div class="col-5">
+                                    <mat-form-field>
+                                        <mat-label>First Name</mat-label>
+                                        <input matInput placeholder="" [(ngModel)]="person.firstName" name="firstName"
+                                            required />
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-5">
+                                    <mat-form-field>
+                                        <mat-label>Last Name</mat-label>
+                                        <input matInput placeholder="" [(ngModel)]="person.lastName" name="lastName"
+                                            required />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- Country/Region -->
+                            <span style="color: grey;">COUNTRY/REGION</span>
+                            <div class="form-row justify-content-center">
+                                <div class="col-4">
+                                    <input type="text" name="city" class="form-control" [(ngModel)]="person.address.city"
+                                        #city="ngModel" placeholder="City">
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" name="state" class="form-control" [(ngModel)]="person.address.state" #state="ngModel" placeholder="State">
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" name="zip" class="form-control" [(ngModel)]="person.address.zip" #zip="ngModel" placeholder="Zip">
+                                </div>
+                            </div>
+                            <!-- DOB -->
+                            <div class="form-row justify-content-center">
+                                <div class=col-10>
+                                    <mat-form-field style="text-align: center;">
+                                        <mat-label>MM/DD/YYYY</mat-label>
+                                        <input matInput name="picker3" [min]="minDate" [max]="maxDate"
+                                            [matDatepicker]="date" [(ngModel)]="person.dob" #picker3="ngModel" />
+                                        <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+                                        <mat-datepicker #date></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <!-- GENDER -->
+                            <div class="form-row justify-content-center">
+                                <div class="col-10">
+                                    <mat-radio-group name="gender" [(ngModel)]="person.gender" #gender="ngModel">
+                                        <mat-radio-button value="male">Male</mat-radio-button>
+                                        &nbsp;
+                                        <mat-radio-button value="female">Female</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- USER ID -->
+                            <div class="form-row justify-content-center">
+                                <div class="col-10" style="text-align: left;">
+                                    <input type="email" name="email" class="form-control" [(ngModel)]="person.userID.userName" #email="ngModel" placeholder="email@example.com">
+                                    <small>There will be your new Leaf ID</small>
+                                </div>
+                            </div><br>
+                            <!-- USER PASSWORD && CONFIRM PASSWORD -->
+                            <div class="form-row justify-content-center">
+                                <div class="col-10" style="text-align: left;">
+                                    <input type="password" name="password" class="form-control" [(ngModel)]="person.userID.password" #password="ngModel" placeholder="Password"><br>
+                                    <input type="password" class="form-control" placeholder="Confirm password">
+                                </div>
+                            </div>
+                            <hr>
+                            <!-- PHONE NUMBER && VERIFY-->
+                            <div class="form-row justify-content-center">
+                                <div class="col-10" style="text-align: left;">
+                                    <input type="number" class="form-control" name="phoneNumber" [(ngModel)]="person.phoneNumber" #phoneNumber="ngModel" placeholder="Phone number"><br>
+                                   <!-- Verify -->
+                                    <div class="form-row">
+                                        <div class="col-10" style="text-align: left;">
+                                            <span style="font-size: 18px;">Verify with :</span>&nbsp;&nbsp;
+                                            <mat-radio-group name="verify" [(ngModel)]="person.verify"
+                                                #verify="ngModel">
+                                                <mat-radio-button value="email">email</mat-radio-button>
+                                                &nbsp;
+                                                <mat-radio-button value="text">text message</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <mat-card-actions>
+                                <button mat-raised-button (click)="submitForm(exampleForm)" color="primary">
+                                    Sign Up
+                                </button>
+                            </mat-card-actions>
+                        </div>
+                    </form>
+                </mat-card-content>
+
+            </div>
+            <div class="col-6 justify-content-center">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" src="assets/label.jpg" alt="Card image cap">
+                    <div class="card-body" style="text-align: left;">
+                      <h4 class="card-title">USER INFOMATION</h4>
+                      <p class="card-text">NAME : {{person.firstName}} {{person.lastName}}</p>
+                      <p class="card-text">COUNTRY : State: {{person.address.state}}, City: {{person.address.city}}, Zip: {{person.address.zip}}</p>
+                      <p class="card-text">DOB : {{person.dob}}</p>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
