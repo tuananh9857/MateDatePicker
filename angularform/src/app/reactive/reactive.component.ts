@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive',
@@ -7,9 +8,51 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReactiveComponent implements OnInit {
 
-  constructor() { }
+  submitted :boolean= false;
+  exampleForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.exampleForm = this.formBuilder.group({
+      firstName:['',[Validators.required, Validators.minLength(2), Validators.maxLength(15)]],
+      lastName:['',[Validators.required, Validators.minLength(2), Validators.maxLength(5)]],
+    })
   }
+
+  resetForm(form: any) {
+    this.submitted = false;
+    console.log(this.submitted);
+    form.reset();
+  }
+  hasErrors(field: any) {
+    return (this.exampleForm.get(field).invalid && this.exampleForm.get(field).touched && this.exampleForm.get(field).errors);
+  }
+
+  validateForm(form: any) {
+
+    Object.keys(form.controls).forEach(field => {
+      const control = form.get(field);
+      if (control instanceof FormGroup){
+        control.markAsTouched({onlySelf:true});
+      }else if(control instanceof FormGroup) {
+        this.validateForm(control);
+      }
+    })
+  
+  }
+  submitForm(form: any) {
+    if (form.valid) {
+      this.submitted = true;
+      console.log(this.firstName)
+      // form.reset();
+    } 
+    else {
+      this.validateForm(form);
+    }
+  }
+
+  get firstName(){ return this.exampleForm.get('firstName')}
+  get lastName(){ return this.exampleForm.get('lastName')}
 
 }
