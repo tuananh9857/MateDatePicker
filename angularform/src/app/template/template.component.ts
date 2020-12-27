@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, NgControlStatus } from '@angular/forms';
 
 @Component({
   selector: 'app-template',
@@ -39,17 +39,20 @@ export class TemplateComponent implements OnInit {
   }
 
   validateForm(form: any) {
-    Object.keys(form.controls).forEach((field) => {
+
+    Object.keys(form.controls).forEach(field => {
       const control = form.control[field];
-      control.markAsTouched({ onlySelf: true });
-    });
+      control.markAsTouched({onlySelf:true})
+    })
+  
   }
   submitForm(form: any) {
     if (form.valid) {
       this.submitted = true;
       console.log(this.person.address);
       // form.reset();
-    } else {
+    } 
+    else {
       this.validateForm(form);
     }
   }

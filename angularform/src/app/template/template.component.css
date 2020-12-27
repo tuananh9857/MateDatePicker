@@ -32,3 +32,10 @@
 mat-form-field {
     margin-right: 12px;
   }
+  .customForm{
+      padding-top: 0%;
+      margin-bottom: 0%;
+  }
+  .has-error{
+      color:red;
+  }

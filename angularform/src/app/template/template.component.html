@@ -14,22 +14,34 @@
             <div class="col-4">
                 <mat-card-content>
                     <!-- Declarion exampleFrom from ngForm -->
-                    <form #exampleForm="ngForm" class="form-group row" novalidate>
+                    <form #exampleForm="ngForm" class="row" novalidate>
                         <div [hidden]="submitted">
                             <!-- First Name && Last Name -->
-                            <div class="form-row justify-content-center">
-                                <div class="col-5">
+                            <div class="form-horizontal justify-content-center">
+                                <div class="form-group customForm">
                                     <mat-form-field>
                                         <mat-label>First Name</mat-label>
-                                        <input matInput placeholder="" [(ngModel)]="person.firstName" name="firstName"
-                                            required />
+                                        <input matInput placeholder="" [(ngModel)]="person.firstName" id="firstName"
+                                            name="firstName" required minlength="2" maxlength="15" #firstName="ngModel"
+                                            class="form-control">
+                                        <small *ngIf="hasErrors(firstName)" class="" [ngClass]="{'has-error' :hasErrors(firstName)}">
+                                            <span *ngIf="firstName.errors.required"> First Name is required</span>
+                                            <span *ngIf="firstName.errors.minlength"> First Name must be at least 2 characters long.</span>
+                                            <span *ngIf="firstName.errors.maxlength"> First Name cannot exceed 15 characters long.</span>
+                                        </small>
                                     </mat-form-field>
                                 </div>
-                                <div class="col-5">
+
+                                <div class="form-group customForm">
                                     <mat-form-field>
                                         <mat-label>Last Name</mat-label>
                                         <input matInput placeholder="" [(ngModel)]="person.lastName" name="lastName"
-                                            required />
+                                            #lastName="ngModel" class="form-control" minlength="1" maxlength="6" required />
+                                            <small *ngIf="hasErrors(lastName)" class="" [ngClass]="{'has-error' : hasErrors(lastName)}">
+                                                <span *ngIf="lastName.errors.required"> Last Name is required</span>
+                                                <span *ngIf="lastName.errors.minlength"> Last Name must be at least 2 characters long.</span>
+                                                <span *ngIf="lastName.errors.maxlength"> Last Name cannot exceed 6 characters long.</span>
+                                            </small>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -37,14 +49,16 @@
                             <span style="color: grey;">COUNTRY/REGION</span>
                             <div class="form-row justify-content-center">
                                 <div class="col-4">
-                                    <input type="text" name="city" class="form-control" [(ngModel)]="person.address.city"
-                                        #city="ngModel" placeholder="City">
+                                    <input type="text" name="city" class="form-control"
+                                        [(ngModel)]="person.address.city" #city="ngModel" placeholder="City">
                                 </div>
                                 <div class="col-3">
-                                    <input type="text" name="state" class="form-control" [(ngModel)]="person.address.state" #state="ngModel" placeholder="State">
+                                    <input type="text" name="state" class="form-control"
+                                        [(ngModel)]="person.address.state" #state="ngModel" placeholder="State">
                                 </div>
                                 <div class="col-3">
-                                    <input type="text" name="zip" class="form-control" [(ngModel)]="person.address.zip" #zip="ngModel" placeholder="Zip">
+                                    <input type="text" name="zip" class="form-control" [(ngModel)]="person.address.zip"
+                                        #zip="ngModel" placeholder="Zip">
                                 </div>
                             </div>
                             <!-- DOB -->
@@ -62,25 +76,32 @@
                             <!-- GENDER -->
                             <div class="form-row justify-content-center">
                                 <div class="col-10">
-                                    <mat-radio-group name="gender" [(ngModel)]="person.gender" #gender="ngModel">
+                                    <mat-radio-group name="gender" [(ngModel)]="person.gender" #gender="ngModel" required>
                                         <mat-radio-button value="male">Male</mat-radio-button>
                                         &nbsp;
                                         <mat-radio-button value="female">Female</mat-radio-button>
                                     </mat-radio-group>
+                                    <small *ngIf="hasErrors(gender)" [ngClass]="{'has-error' : hasErrors}">
+                                        <span *ngIf="gender.errors.required">Gender must be select</span>
+                                    </small>
                                 </div>
                             </div>
                             <hr>
                             <!-- USER ID -->
                             <div class="form-row justify-content-center">
                                 <div class="col-10" style="text-align: left;">
-                                    <input type="email" name="email" class="form-control" [(ngModel)]="person.userID.userName" #email="ngModel" placeholder="email@example.com">
+                                    <input type="email" name="email" class="form-control"
+                                        [(ngModel)]="person.userID.userName" #email="ngModel"
+                                        placeholder="email@example.com">
                                     <small>There will be your new Leaf ID</small>
                                 </div>
                             </div><br>
                             <!-- USER PASSWORD && CONFIRM PASSWORD -->
                             <div class="form-row justify-content-center">
                                 <div class="col-10" style="text-align: left;">
-                                    <input type="password" name="password" class="form-control" [(ngModel)]="person.userID.password" #password="ngModel" placeholder="Password"><br>
+                                    <input type="password" name="password" class="form-control"
+                                        [(ngModel)]="person.userID.password" #password="ngModel"
+                                        placeholder="Password"><br>
                                     <input type="password" class="form-control" placeholder="Confirm password">
                                 </div>
                             </div>
@@ -88,8 +109,10 @@
                             <!-- PHONE NUMBER && VERIFY-->
                             <div class="form-row justify-content-center">
                                 <div class="col-10" style="text-align: left;">
-                                    <input type="number" class="form-control" name="phoneNumber" [(ngModel)]="person.phoneNumber" #phoneNumber="ngModel" placeholder="Phone number"><br>
-                                   <!-- Verify -->
+                                    <input type="number" class="form-control" name="phoneNumber"
+                                        [(ngModel)]="person.phoneNumber" #phoneNumber="ngModel"
+                                        placeholder="Phone number"><br>
+                                    <!-- Verify -->
                                     <div class="form-row">
                                         <div class="col-10" style="text-align: left;">
                                             <span style="font-size: 18px;">Verify with :</span>&nbsp;&nbsp;
@@ -118,12 +141,13 @@
                 <div class="card" style="width: 20rem;">
                     <img class="card-img-top" src="assets/label.jpg" alt="Card image cap">
                     <div class="card-body" style="text-align: left;">
-                      <h4 class="card-title">USER INFOMATION</h4>
-                      <p class="card-text">NAME : {{person.firstName}} {{person.lastName}}</p>
-                      <p class="card-text">COUNTRY : State: {{person.address.state}}, City: {{person.address.city}}, Zip: {{person.address.zip}}</p>
-                      <p class="card-text">DOB : {{person.dob}}</p>
+                        <h4 class="card-title">USER INFOMATION</h4>
+                        <p class="card-text">NAME : {{person.firstName}} {{person.lastName}}</p>
+                        <p class="card-text">COUNTRY : State: {{person.address.state}}, City: {{person.address.city}},
+                            Zip: {{person.address.zip}}</p>
+                        <p class="card-text">DOB : {{person.dob}}</p>
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     </div>
