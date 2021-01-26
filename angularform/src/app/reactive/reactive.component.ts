@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive',
@@ -10,6 +10,15 @@ export class ReactiveComponent implements OnInit {
 
   submitted :boolean= false;
   exampleForm: FormGroup;
+
+  person = { firstName: '', 
+  lastName: '', 
+  address: { city: '', state: '', zip: '' }, 
+  dob: '', 
+  gender: '',
+  userID: {userName:'', password:''},
+  phoneNumber:'',
+  verify:'' };
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -33,7 +42,7 @@ export class ReactiveComponent implements OnInit {
 
     Object.keys(form.controls).forEach(field => {
       const control = form.get(field);
-      if (control instanceof FormGroup){
+      if (control instanceof FormControl){
         control.markAsTouched({onlySelf:true});
       }else if(control instanceof FormGroup) {
         this.validateForm(control);

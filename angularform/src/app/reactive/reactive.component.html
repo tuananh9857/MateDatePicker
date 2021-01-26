@@ -152,7 +152,7 @@
                     <div class="card-body" style="text-align: left">
                         <h4 class="card-title">USER INFOMATION</h4>
                         <p class="card-text">
-                            NAME : {{ firstName }} {{ lastName }}
+                            NAME : {{ exampleForm.value | json }} {{exampleForm.value.firstName}}
                         </p>
                         <p class="card-text">
                             <!-- COUNTRY : State: {{ person.address.state }}, City:
